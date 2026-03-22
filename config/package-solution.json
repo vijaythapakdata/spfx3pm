@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "spfxtraining-3-pm-client-side-solution",
+    "id": "949756b5-155c-4b76-8f89-cf079a4b63e8",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.22.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Spfxtraining3pm description"
+      },
+      "longDescription": {
+        "default": "Spfxtraining3pm description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "spfxtraining-3-pm Feature",
+        "description": "The feature that activates elements of the spfxtraining-3-pm solution.",
+        "id": "2735fd36-e723-4fe3-9253-5cda3a410b62",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/spfxtraining-3-pm.sppkg"
+  }
+}
