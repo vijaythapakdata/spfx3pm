@@ -2,6 +2,11 @@ import * as React from 'react';
 // import styles from './FirstWebPart.module.scss';
 import type { IFirstWebPartProps } from './IFirstWebPartProps';
 import { escape } from '@microsoft/sp-lodash-subset';
+import ButtonFile from './ReactTopics/ButtonFile';
+import CounterApp from './ReactTopics/CounterApp';
+import UseEffectHooks from './ReactTopics/UseEffectHooks';
+import UseCallBackHooks from './ReactTopics/UseCallbackHook';
+import UseMemoHooks from './ReactTopics/UseMemoHooks';
 
 const FirstWebPart:React.FC<IFirstWebPartProps>=(props)=>{
   var a="vijay";
@@ -124,6 +129,17 @@ console.log(date.toLocaleString("en-In"))
     {fruits.map((val,index)=>{
       return<p key={index}>{val}</p>
     })}
+    {/* Bttuon file */}
+    <ButtonFile/>
+    <hr/>
+    {/* Counter app */}
+
+    <CounterApp/>
+    {/* Useeffct */}
+    <hr/>
+    <UseEffectHooks/>
+    <UseCallBackHooks/>
+    <UseMemoHooks/>
     </>
   )
 }
