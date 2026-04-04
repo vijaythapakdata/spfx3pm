@@ -9,10 +9,20 @@
           "manifest": "./src/webparts/firstWebPart/FirstWebPartWebPart.manifest.json"
         }
       ]
+    },
+    "spfx-form-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/spfxForm/SpfxFormWebPart.js",
+          "manifest": "./src/webparts/spfxForm/SpfxFormWebPart.manifest.json"
+        }
+      ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "FirstWebPartWebPartStrings": "lib/webparts/firstWebPart/loc/{locale}.js"
+    "FirstWebPartWebPartStrings": "lib/webparts/firstWebPart/loc/{locale}.js",
+    "SpfxFormWebPartStrings": "lib/webparts/spfxForm/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
   }
 }
