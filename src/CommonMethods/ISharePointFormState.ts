@@ -10,4 +10,12 @@ export interface ISharePointFormState{
     ManagerId:any[];
     Admin:any;
     AdminId:any
+    Department:string;
+    Skills:any[];
+    Gender:string;
+    City:any;
+}
+
+export interface ValidationSchema{
+    Name:string;
 }

@@ -22,7 +22,11 @@ const items=await list.items.add({
     Permission:formData.Permission,
     Address:formData.Address,
     AdminId:formData.AdminId,
-    ManagerId:{results:formData.ManagerId}
+    ManagerId:{results:formData.ManagerId},
+    Department:formData.Department,
+    Skills:{results:formData.Skills},
+    Gender:formData.Gender,
+    CityId:formData.City
 });
 return items;
         }
@@ -32,4 +36,14 @@ throw err;
         }
     }
 
+    //attachment 
+
+    public async addAttachment(itemId:number,Attachments:File[]):Promise<void>{
+        if(!Attachments||Attachments.length===0)return;
+        const list =this.web.lists.getByTitle(ListNames.FirstList);
+        for(const file of Attachments){
+
+            await list.items.getById(itemId).attachmentFiles.add(file.name,file);
+        }
+    }
 }

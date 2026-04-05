@@ -7,9 +7,10 @@ import { ISharePointFormState } from '../../../CommonMethods/ISharePointFormStat
 import {sp} from "@pnp/sp/presets/all";
 import { useState,useEffect,useCallback } from 'react';
 import { Dialog } from '@microsoft/sp-dialog';
-import { PrimaryButton, Slider, TextField, Toggle } from '@fluentui/react';
+import { ChoiceGroup, Dropdown, Label, PrimaryButton, Slider, TextField, Toggle } from '@fluentui/react';
 import { PeoplePicker, PrincipalType } from "@pnp/spfx-controls-react/lib/PeoplePicker";
 import { handleMultiSelectedPeoplePicker, handleSingleSelectedPeoplePicker } from '../../../CommonMethods/PeoplePickerHandler';
+import { handleAttachementChange } from '../../../CommonMethods/AttachmentHandler';
 const SpfxForm:React.FC<ISpfxFormProps>=(props)=>{
   const [formData,setFormData]=useState<ISharePointFormState>({
     Name:"",
@@ -22,8 +23,14 @@ const SpfxForm:React.FC<ISpfxFormProps>=(props)=>{
     Manager:[],
     ManagerId:[],
     Admin:"",
-    AdminId:""
+    AdminId:"",
+    Department:"",
+    Skills:[],
+    Gender:"",
+    City:""
+
   });
+  const [attachments,setAttachments]=useState<File[]>([]);
 useEffect(()=>{
   sp.setup({
     spfxContext:props.context as any
@@ -34,6 +41,8 @@ const createForm=async()=>{
   try{
 const _service=new SharePointFormServiceApi(props.siteurl);
 const result=await _service.addItems(formData);
+const itemid=result.data.Id;
+await _service.addAttachment(itemid,attachments);
 Dialog.alert(`Form submitted successfully! wit Id ${result.data.Id}`);
 console.log(result);
 //reset form
@@ -48,8 +57,13 @@ setFormData({
    Manager:[],
     ManagerId:[],
     Admin:"",
-    AdminId:""
+    AdminId:"",
+     Department:"",
+    Skills:[],
+    Gender:"",
+    City:""
 });
+setAttachments([]);
   }
   catch(err){
 console.error("Error submitting form:",err);
@@ -125,6 +139,41 @@ setFormData(prev=>({...prev,[field]:value}));
     defaultSelectedUsers={formData.Manager}
     resolveDelay={1000} 
     webAbsoluteUrl={props.siteurl}/>
+    {/* file */}
+    <Label>Attachments</Label>
+    <input
+    type='file'
+    title='upload to file'
+    multiple
+    onChange={(e)=>handleAttachementChange(e,setAttachments)}
+    />
+    {/* Department */}
+    <Dropdown
+    label='Department'
+    options={props.departmentoptions}
+    selectedKey={formData.Department}
+    onChange={(_,option)=>handleSubmit("Department",option?.key as string)}
+    placeholder='Select Department'
+   
+    />
+    {/* City */}
+    <Dropdown
+    label='City'
+    options={props.cityoptions}
+    selectedKey={formData.City}
+    onChange={(_,option)=>handleSubmit("City",option?.key as string)}
+    placeholder='Select City'
+    
+    />
+    {/* Gend */}
+    <ChoiceGroup
+    label='Gender'
+    options={props.genderoptions}
+    selectedKey={formData.Gender}
+    onChange={(_,option)=>handleSubmit("Gender",option?.key as string)}
+    
+   
+    />
     <TextField
     label='Full Address'
     value={formData.Address}
