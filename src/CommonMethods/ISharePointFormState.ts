@@ -14,6 +14,7 @@ export interface ISharePointFormState{
     Skills:any[];
     Gender:string;
     City:any;
+    DOB:any;
 }
 
 export interface ValidationSchema{

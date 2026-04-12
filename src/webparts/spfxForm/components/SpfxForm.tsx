@@ -7,10 +7,12 @@ import { ISharePointFormState } from '../../../CommonMethods/ISharePointFormStat
 import {sp} from "@pnp/sp/presets/all";
 import { useState,useEffect,useCallback } from 'react';
 import { Dialog } from '@microsoft/sp-dialog';
-import { ChoiceGroup, Dropdown, Label, PrimaryButton, Slider, TextField, Toggle } from '@fluentui/react';
+import { ChoiceGroup, DatePicker, Dropdown, Label, PrimaryButton, Slider, TextField, Toggle } from '@fluentui/react';
 import { PeoplePicker, PrincipalType } from "@pnp/spfx-controls-react/lib/PeoplePicker";
 import { handleMultiSelectedPeoplePicker, handleSingleSelectedPeoplePicker } from '../../../CommonMethods/PeoplePickerHandler';
 import { handleAttachementChange } from '../../../CommonMethods/AttachmentHandler';
+import { handleSkillsChange } from '../../../CommonMethods/Multiselect';
+import { DateFormat, DatePickerString } from '../../../CommonMethods/DateFormattting';
 const SpfxForm:React.FC<ISpfxFormProps>=(props)=>{
   const [formData,setFormData]=useState<ISharePointFormState>({
     Name:"",
@@ -27,7 +29,8 @@ const SpfxForm:React.FC<ISpfxFormProps>=(props)=>{
     Department:"",
     Skills:[],
     Gender:"",
-    City:""
+    City:"",
+    DOB:""
 
   });
   const [attachments,setAttachments]=useState<File[]>([]);
@@ -61,7 +64,8 @@ setFormData({
      Department:"",
     Skills:[],
     Gender:"",
-    City:""
+    City:"",
+    DOB:""
 });
 setAttachments([]);
   }
@@ -173,6 +177,22 @@ setFormData(prev=>({...prev,[field]:value}));
     onChange={(_,option)=>handleSubmit("Gender",option?.key as string)}
     
    
+    />
+    {/* Skills */}
+    <Dropdown
+    label='Skills'
+    placeholder='--select--'
+    options={props.skillsoptions}
+    defaultSelectedKeys={formData.Skills}
+    onChange={(_,opt)=>handleSkillsChange(opt!,formData,setFormData)}
+    multiSelect
+    />
+    {/* Datepicker */}
+    <DatePicker
+    label='DOB'
+    strings={DatePickerString}
+    formatDate={DateFormat}
+    onSelectDate={(e)=>setFormData(prev=>({...prev,DOB:e}))}
     />
     <TextField
     label='Full Address'

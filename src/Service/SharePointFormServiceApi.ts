@@ -26,7 +26,8 @@ const items=await list.items.add({
     Department:formData.Department,
     Skills:{results:formData.Skills},
     Gender:formData.Gender,
-    CityId:formData.City
+    CityId:formData.City,
+    DOB:new Date(formData.DOB)
 });
 return items;
         }
